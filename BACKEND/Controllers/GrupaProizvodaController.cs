@@ -1,4 +1,5 @@
 ﻿using BACKEND.Data;
+using BACKEND.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using System.Linq.Expressions;
@@ -26,6 +27,23 @@ namespace BACKEND.Controllers
             try
             {
                 return Ok(_context.Grupe_Proizvoda);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult Post(GrupaProizvoda GrupaProizvoda)
+        {
+            try
+            {
+                _context.Grupe_Proizvoda.Add(GrupaProizvoda);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, GrupaProizvoda);
+                
             }
             catch (Exception e)
             {
