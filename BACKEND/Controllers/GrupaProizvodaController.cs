@@ -8,7 +8,7 @@ namespace BACKEND.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class GrupaProizvodaController : ControllerBase 
+    public class GrupaProizvodaController : ControllerBase
     {
         // koristimo dependency injection
 
@@ -18,7 +18,7 @@ namespace BACKEND.Controllers
         // 2. u konstruktoru postavljamo vrijednost
         public GrupaProizvodaController(EdunovaContext context)
         {
-            _context = context ;
+            _context = context;
         }
 
         [HttpGet]
@@ -43,14 +43,85 @@ namespace BACKEND.Controllers
                 _context.Grupe_Proizvoda.Add(GrupaProizvoda);
                 _context.SaveChanges();
                 return StatusCode(StatusCodes.Status201Created, GrupaProizvoda);
-                
+
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
         }
+
+
+
+
+        [HttpPut("sifra:int")]
+        public IActionResult Put(int sifra, GrupaProizvoda GrupaProizvoda)
+        {
+            if (sifra < 1)
+            {
+                return BadRequest(new { poruka = "Sifra mora biti veća od 0" });
+            }
+
+            try
+            {
+                var grupa = _context.Grupe_Proizvoda.Find(sifra);
+                if (grupa == null)
+                {
+                    return NotFound(new { poruka = "Grupa nije pronađena" });
+                }
+                grupa.Naziv = GrupaProizvoda.Naziv;
+                _context.Grupe_Proizvoda.Update(grupa);
+                _context.SaveChanges();
+                return Ok(grupa);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+
+
+
+            }
+
+        }
+
+
+
+
+
+            [HttpDelete("{sifra:int}")]
+            public IActionResult Delete(int sifra, GrupaProizvoda GrupaProizvoda)
+            {
+                if (sifra < 1)
+                {
+                    return BadRequest(new { poruka = "Sifra mora biti veća od 0" });
+                }
+
+                try
+                {
+                    var grupa = _context.Grupe_Proizvoda.Find(sifra);
+                    if (grupa == null)
+                    {
+                        return NotFound(new { poruka = "Grupa nije pronađena" });
+                    }
+                
+                    _context.Grupe_Proizvoda.Remove(grupa);
+                _context.SaveChanges();
+                    return Ok(grupa);
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e);
+
+
+
+                }
+
+
+
+
+
+            
+        }
+
     }
 }
-
-
