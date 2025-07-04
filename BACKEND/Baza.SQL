@@ -9,8 +9,8 @@ go
 use grupe_proizvoda;
 
 create table grupe_proizvoda(
-sifra_grupe int primary key,
-naziv_grupe varchar(50) not null
+sifra int NOT NULL primary key IDENTITY(1,1),
+naziv varchar(50) not null
 );
 
 create table proizvodi(
@@ -19,7 +19,7 @@ naziv_proizvoda varchar(100) not null,
 grupa int,
 nabavna_cijena decimal(10,2) not null,
 prodajna_cijena decimal(10,2) not null,
-foreign key (grupa) references grupe_proizvoda(sifra_grupe) 
+foreign key (grupa) references grupe_proizvoda(sifra) 
 );
 
 create table prodaja(
@@ -43,28 +43,28 @@ order by marza desc;
 
 -- marža po grupi proizvoda
 
-select gp.sifra_grupe,gp.naziv_grupe,
+select gp.sifra,gp.naziv,
 sum(pr.kolicina) as ukupno_prodano,
 sum((p.prodajna_cijena - p.nabavna_cijena) * pr.kolicina) as ukupna_marza
 from grupe_proizvoda gp
-join proizvodi p on gp.sifra_grupe = p.grupa
+join proizvodi p on gp.sifra = p.grupa
 join prodaja pr on p.sifra_proizvoda = pr.sifra_proizvoda
-group by gp.sifra_grupe, gp.naziv_grupe
+group by gp.sifra, gp.naziv
 order by ukupna_marza desc;
 
 -- unos 10 proizvoda u grupe proizvoda
 
-insert into grupe_proizvoda (sifra_grupe, naziv_grupe) values
-(1, 'Pića'),
-(2, 'Mliječni proizvodi'),
-(3, 'Pekarski proizvodi'),
-(4, 'Mesni proizvodi'),
-(5, 'Voće'),
-(6, 'Povrće'),
-(7, 'Zamrznuta hrana'),
-(8, 'Grickalice'),
-(9, 'Kozmetika'),
-(10, 'Kućanstvo');
+insert into grupe_proizvoda ( naziv) values
+( 'Pića'),
+( 'Mliječni proizvodi'),
+( 'Pekarski proizvodi'),
+( 'Mesni proizvodi'),
+( 'Voće'),
+( 'Povrće'),
+( 'Zamrznuta hrana'),
+( 'Grickalice'),
+( 'Kozmetika'),
+( 'Kućanstvo');
 
 -- unos 10 proizvoda po različitim grupama
 
@@ -97,15 +97,15 @@ insert into prodaja (sifra_prodaje, sifra_proizvoda, datum_prodaje, kolicina, ci
 
 -- pregled proizvoda sa pripadajućom grupom
 
-select p.sifra_proizvoda,p.naziv_proizvoda, g.naziv_grupe, p.nabavna_cijena,p.prodajna_cijena
+select p.sifra_proizvoda,p.naziv_proizvoda, g.naziv, p.nabavna_cijena,p.prodajna_cijena
 from proizvodi p
-join grupe_proizvoda g on p.grupa = g.sifra_grupe;
-select p.sifra_proizvoda,p.naziv_proizvoda,g.naziv_grupe,p.nabavna_cijena,p.prodajna_cijena
+join grupe_proizvoda g on p.grupa = g.sifra;
+select p.sifra_proizvoda,p.naziv_proizvoda,g.naziv,p.nabavna_cijena,p.prodajna_cijena
 from proizvodi p
-join grupe_proizvoda g on p.grupa = g.sifra_grupe;
+join grupe_proizvoda g on p.grupa = g.sifra;
 
 -- pregled svih prodaja s nazivima proizoda
-
+use master
 select pr.sifra_prodaje,p.naziv_proizvoda,pr.datum_prodaje,pr.kolicina,pr.cijena_po_jednici
 from prodaja pr
 join proizvodi p on pr.sifra_proizvoda = p.sifra_proizvoda;
@@ -113,14 +113,6 @@ join proizvodi p on pr.sifra_proizvoda = p.sifra_proizvoda;
 -- ispisati razliku prodajnog i nabavnog iznosa
 -- grupirane po nazivu grupe
 
-select gp.naziv_grupe,
-sum(p.nabavna_cijena * pr.kolicina) as ukupna_nabavna_vrijednost,
-sum(pr.cijena_po_jednici * pr.kolicina) as ukupna_prodajna_vrijednost,
-sum((pr.cijena_po_jednici - p.nabavna_cijena) * pr.kolicina) as ukupna_razlika
-from prodaja pr
-join proizvodi p on pr.sifra_proizvoda = p.sifra_proizvoda
-join grupe_proizvoda gp on p.grupa = gp.sifra_grupe
-group by gp.naziv_grupe;
 
 select sifra_proizvoda,nabavna_cijena from proizvodi;
 select sifra_prodaje from prodaja;
