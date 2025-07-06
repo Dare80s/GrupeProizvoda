@@ -1,6 +1,4 @@
-﻿--create database grupe_proizvoda;
-
-
+﻿
 ALTER DATABASE db_abb4f8_wp8 SET SINGLE_USER WITH
 ROLLBACK IMMEDIATE;
 GO
@@ -129,8 +127,3 @@ select  * from proizvodi where nabavna_cijena <5;
 select * from proizvodi;
 select sifra_proizvoda, nabavna_cijena from proizvodi;
 select * from grupe_proizvoda;
-
--- gp je naziv grupa proizvoda u kojoj grupiramo rezultate
--- sum(p.nabavna_cijena * pr.kolicina) uk. nab. vrijed. prodanih proizvoda u toj grupi
--- sum(pr.cijena_po_jednici * pr.kolicina) uk. pr vrijed. prod. proiz. u toj grupi
--- sum((pr.cijena_po_jednici - p.nabavna_cijena) * pr.kolicina) uk razlika između prodajne i nabave vrijednosti
