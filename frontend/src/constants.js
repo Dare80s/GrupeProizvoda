@@ -1,7 +1,8 @@
 
 
 export const RouteNames = {
-    HOME: '/'
+    HOME: '/',
+    GRUPA_PROIZVODA:'/grupaproizvoda'
 }
 
 
