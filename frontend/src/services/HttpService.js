@@ -2,7 +2,7 @@ import axios from "axios";
 import { PRODUKCIJA } from "../constants";
 
 
-export const HttpServise = axios.create({
+export const HttpService = axios.create({
     baseURL: PRODUKCIJA + '/api/v1',
     headers:{
         'Content-Type':'application/json'
