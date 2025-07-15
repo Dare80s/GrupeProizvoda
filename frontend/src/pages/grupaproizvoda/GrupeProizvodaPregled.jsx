@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import GrupeProizvoda from "../../services/GrupeProizvoda";
 import { NumericFormat } from "react-number-format";
+import { Link } from "react-router-dom";
+import { RouteNames } from "../../constants";
 
 
 export default function GrupeProizvodaPregled(){
@@ -21,7 +23,11 @@ export default function GrupeProizvodaPregled(){
 
     return(
         <>
-        Tablični Pregled grupe proizvoda
+        
+
+        <Link 
+        className="btn btn-success"
+        to={RouteNames.GRUPA_PROIZVODA_NOVI} >Dodavanje GrupeProizvoda</Link>
         <Table striped bordered hover responsive>
             <thead>
                 <tr>

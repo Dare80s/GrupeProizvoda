@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom'
 import { RouteNames } from './constants'
 import Pocetna from './pages/Pocetna'
 import GrupeProizvodaPregled from './pages/grupaproizvoda/GrupeProizvodaPregled'
+import GrupeProizvodaDodaj from './pages/grupaproizvoda/GrupeProizvodaDodaj'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     <Routes>
       <Route path={RouteNames.HOME} element={<Pocetna />} />
       <Route path={RouteNames.GRUPA_PROIZVODA} element={<GrupeProizvodaPregled />} />
+      <Route path={RouteNames.GRUPA_PROIZVODA_NOVI} element={<GrupeProizvodaDodaj />} />
     </Routes>
     </Container>
 

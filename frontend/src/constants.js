@@ -2,7 +2,8 @@
 
 export const RouteNames = {
     HOME: '/',
-    GRUPA_PROIZVODA:'/grupaproizvoda'
+    GRUPA_PROIZVODA:'/grupaproizvoda',
+    GRUPA_PROIZVODA_NOVI: '/grupaproizvoda/dodaj'
 }
 
 
