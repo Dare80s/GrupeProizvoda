@@ -12,6 +12,14 @@ async function  get() {
     
 }
 
+
+async function dodaj(gp) {
+    return await HttpService.post('/GrupaProizvoda',gp)
+    .then((odgovor)=>{return true})
+    .catch((e)=>{return false})
+}
+
 export default{
-    get
+    get,
+    dodaj
 }
