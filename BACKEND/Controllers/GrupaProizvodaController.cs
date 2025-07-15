@@ -89,7 +89,7 @@ namespace BACKEND.Controllers
 
 
             [HttpDelete("{sifra:int}")]
-            public IActionResult Delete(int sifra, GrupaProizvoda GrupaProizvoda)
+            public IActionResult Delete(int sifra)
             {
                 if (sifra < 1)
                 {

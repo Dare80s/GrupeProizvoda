@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import GrupeProizvoda from "../../services/GrupeProizvoda";
 import { NumericFormat } from "react-number-format";
 import { Link } from "react-router-dom";
@@ -21,6 +21,19 @@ export default function GrupeProizvodaPregled(){
         dohvatiGrupeProizvoda()
     },[])
 
+     function obrisi(sifra){
+        if(!confirm('Sigurno obrisati?')){
+            return;
+        }
+        brisanje(sifra)
+    }
+
+    async function brisanje(sifra) {
+        const odgovor = await GrupeProizvoda.obrisi(sifra);
+        dohvatiGrupeProizvoda();
+    }
+
+
     return(
         <>
         
@@ -32,12 +45,19 @@ export default function GrupeProizvodaPregled(){
             <thead>
                 <tr>
                     <th>Naziv</th>
+                    <th>Akcija</th>
                 </tr>
             </thead>
             <tbody>
                 {grupeProizvoda &&grupeProizvoda.map((grupaproizvoda,index)=>(
                     <tr key={index}>
                         <td>{grupaproizvoda.naziv}</td>
+                        <td>
+                            <Button variant="danger"
+                            onClick={()=>obrisi(grupaproizvoda.sifra)}>
+                                Obriši
+                            </Button>                        
+                        </td>
                         
                     </tr>
                 ))}
