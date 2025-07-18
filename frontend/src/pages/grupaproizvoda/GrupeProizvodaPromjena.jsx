@@ -22,7 +22,7 @@ export default function GrupeProizvodaPromjena(){
 
     async function promjena(sifra,gp){
         const odgovor = await GrupeProizvoda.promjeni(sifra,gp);
-       // navigate(RouteNames.GRUPA_PROIZVODA);
+        navigate(RouteNames.GRUPA_PROIZVODA);
     }
 
 
