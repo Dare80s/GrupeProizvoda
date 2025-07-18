@@ -54,7 +54,7 @@ namespace BACKEND.Controllers
 
 
 
-        [HttpPut("sifra:int")]
+        [HttpPut("{sifra:int}")]
         public IActionResult Put(int sifra, GrupaProizvoda GrupaProizvoda)
         {
             if (sifra < 1)
@@ -122,6 +122,31 @@ namespace BACKEND.Controllers
 
             
         }
+
+
+        [HttpGet("{sifra:int}")]
+        public IActionResult Get(int sifra)
+        {
+            if(sifra < 1)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                var gp = _context.Grupe_Proizvoda.Find(sifra);
+                if(gp== null)
+                {
+                    return NotFound();
+                }
+                return Ok(gp);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+
 
     }
 }
