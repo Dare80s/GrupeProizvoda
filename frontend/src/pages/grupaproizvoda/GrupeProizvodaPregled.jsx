@@ -9,7 +9,7 @@ import { RouteNames } from "../../constants";
 export default function GrupeProizvodaPregled(){
 
     const[grupeProizvoda, setGrupeProizvoda] = useState([])
-    const navigate = useNavigate
+    const navigate = useNavigate()
 
 
      async function dohvatiGrupeProizvoda() {
@@ -55,6 +55,12 @@ export default function GrupeProizvodaPregled(){
                     <tr key={index}>
                         <td>{grupaproizvoda.naziv}</td>
                         <td>
+                            <Button 
+                            onClick={()=>navigate(`/grupaproizvoda/${grupaproizvoda.sifra}`)}>
+                                Promjeni
+                            </Button> 
+&nbsp;&nbsp;&nbsp;&nbsp;
+
                             <Button variant="danger"
                             onClick={()=>obrisi(grupaproizvoda.sifra)}>
                                 Obriši
@@ -64,14 +70,9 @@ export default function GrupeProizvodaPregled(){
                     </tr>
                 ))}
             </tbody>
-                     {grupeProizvoda &&grupeProizvoda.map((grupaproizvoda,index)=>(
-                    <tr key={index}>
-                        <td>{grupaproizvoda.naziv}</td>
-                        <td>
-                            <Button variant="danger"
-                            onClick={()=>promjeni(grupaproizvoda.sifra)}>
-                                Promjeni
-                            </Button> 
+                  
+                            
+                           
         </Table>
 
         </>

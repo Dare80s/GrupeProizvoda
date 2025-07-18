@@ -7,6 +7,7 @@ import { RouteNames } from './constants'
 import Pocetna from './pages/Pocetna'
 import GrupeProizvodaPregled from './pages/grupaproizvoda/GrupeProizvodaPregled'
 import GrupeProizvodaDodaj from './pages/grupaproizvoda/GrupeProizvodaDodaj'
+import GrupeProizvodaPromjena from './pages/grupaproizvoda/GrupeProizvodaPromjena'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path={RouteNames.HOME} element={<Pocetna />} />
       <Route path={RouteNames.GRUPA_PROIZVODA} element={<GrupeProizvodaPregled />} />
       <Route path={RouteNames.GRUPA_PROIZVODA_NOVI} element={<GrupeProizvodaDodaj />} />
+      <Route path={RouteNames.GRUPA_PROIZVODA_PROMJENA} element={<GrupeProizvodaPromjena />} />
     </Routes>
     </Container>
 

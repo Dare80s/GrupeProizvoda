@@ -13,6 +13,19 @@ async function  get() {
 }
 
 
+async function  getBySifra(sifra) {
+    return await HttpService.get('/GrupaProizvoda/' + sifra)
+    // sve je u redu,dobili smo odgovor
+    .then((odgovor)=>{
+        //console.log(odgovor.data)
+        return odgovor.data
+    })
+    //nastala je greška,obradi ju
+    .catch((e)=>{})
+    
+}
+
+
 async function dodaj(gp) {
     return await HttpService.post('/GrupaProizvoda',gp)
     .then((odgovor)=>{return true})
@@ -33,6 +46,7 @@ async function promjeni(sifra, GrupaProizvoda) {
 }
 export default{
     get,
+    getBySifra,
     dodaj,
     obrisi,
     promjeni

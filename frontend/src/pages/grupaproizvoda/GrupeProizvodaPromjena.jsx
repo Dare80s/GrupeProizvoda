@@ -1,21 +1,28 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import GrupeProizvoda from "../../services/GrupeProizvoda";
-import moment from "moment";
+import { useEffect, useState } from "react";
 
 
 export default function GrupeProizvodaPromjena(){
     
     const navigate  = useNavigate();
+    const params = useParams()
+    const[gp,setGp] = useState({})
 
-    use.Effect(()=>){
-        ucitajGrupeproizvoda
+    async function ucitajGrupeProizvoda() {
+        const o = await GrupeProizvoda.getBySifra(params.sifra)
+        setGp(o)
     }
+
+    useEffect(()=>{
+        ucitajGrupeProizvoda()
+    },[])
 
     async function promjena(sifra,gp){
         const odgovor = await GrupeProizvoda.promjeni(sifra,gp);
-        navigate(RouteNames.GRUPA_PROIZVODA);
+       // navigate(RouteNames.GRUPA_PROIZVODA);
     }
 
 
@@ -25,6 +32,7 @@ export default function GrupeProizvodaPromjena(){
         let podaci = new FormData(e.target); // dohvaćamo sve podatke iz forme
 
         promjena(
+            params.sifra,
             {
             naziv: podaci.get('naziv')
             }
@@ -41,7 +49,7 @@ export default function GrupeProizvodaPromjena(){
 
             <Form.Group controlId="naziv">
                 <Form.Label>Naziv</Form.Label>
-                <Form.Control type="text" name="naziv" required />
+                <Form.Control type="text" name="naziv" required defaultValue={gp.naziv}/>
             </Form.Group>
 
             
@@ -56,7 +64,7 @@ export default function GrupeProizvodaPromjena(){
                 </Col>
                 <Col xs={6} sm={6} md={9} lg={10} xl={6} xxl={6}>
                     <Button variant="success" type="submit">
-                        Dodaj GP
+                        Promjeni GP
                     </Button>
                 </Col>
             </Row>
