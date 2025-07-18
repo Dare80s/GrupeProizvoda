@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import GrupeProizvoda from "../../services/GrupeProizvoda";
 import { NumericFormat } from "react-number-format";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteNames } from "../../constants";
 
 
 export default function GrupeProizvodaPregled(){
 
     const[grupeProizvoda, setGrupeProizvoda] = useState([])
+    const navigate = useNavigate
+
 
      async function dohvatiGrupeProizvoda() {
         const odgovor = await GrupeProizvoda.get()
@@ -62,7 +64,14 @@ export default function GrupeProizvodaPregled(){
                     </tr>
                 ))}
             </tbody>
-
+                     {grupeProizvoda &&grupeProizvoda.map((grupaproizvoda,index)=>(
+                    <tr key={index}>
+                        <td>{grupaproizvoda.naziv}</td>
+                        <td>
+                            <Button variant="danger"
+                            onClick={()=>promjeni(grupaproizvoda.sifra)}>
+                                Promjeni
+                            </Button> 
         </Table>
 
         </>

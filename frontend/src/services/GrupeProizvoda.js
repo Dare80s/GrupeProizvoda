@@ -26,8 +26,14 @@ async function obrisi(sifra) {
     .catch((e)=>{return false})
 }
 
+async function promjeni(sifra, GrupaProizvoda) {
+    return await HttpService.put('/GrupaProizvoda/'+sifra,GrupaProizvoda)
+    .then((odgovor)=>{return true})
+    .catch((e)=>{return false})
+}
 export default{
     get,
     dodaj,
-    obrisi
+    obrisi,
+    promjeni
 }
